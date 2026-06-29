@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.27/jsrsasign-all-min.js"></script>
     <style>
         body {
-            font-family: 'Noto Sans Bengali', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0b0f19;
             color: #f3f4f6;
         }
@@ -95,11 +95,11 @@
 
                     <!-- Teacher Portal Toggle -->
                     <button id="nav-teacher-btn" onclick="toggleTeacherView()" class="px-4 py-1.5 rounded-lg border border-neonCyan/30 text-neonCyan text-sm font-semibold hover:bg-neonCyan/10 transition duration-300">
-                        <i class="fa-solid fa-chalkboard-user mr-1.5"></i> শিক্ষক প্যানেল
+                        <i class="fa-solid fa-chalkboard-user mr-1.5"></i> Teacher Panel
                     </button>
                     
                     <!-- Settings Button -->
-                    <button onclick="location.hash='#/setup'" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition duration-200" title="সেটিংস ও ক্রেডেনশিয়ালস">
+                    <button onclick="location.hash='#/setup'" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition duration-200" title="Settings & Credentials">
                         <i class="fa-solid fa-gears text-lg"></i>
                     </button>
                 </div>
@@ -111,7 +111,7 @@
     <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <div class="bg-slate-900 border border-neonCyan glow-cyan text-white px-5 py-3.5 rounded-xl flex items-center space-x-3 shadow-2xl">
             <i id="toast-icon" class="fa-solid fa-circle-check text-emeraldGreen text-lg"></i>
-            <span id="toast-text" class="text-sm font-medium">কুইজ সফলভাবে সম্পন্ন হয়েছে!</span>
+            <span id="toast-text" class="text-sm font-medium">Quiz completed successfully!</span>
         </div>
     </div>
 
@@ -124,7 +124,7 @@
                 <div class="absolute inset-0 border-4 border-slate-800 rounded-full"></div>
                 <div class="absolute inset-0 border-4 border-t-neonCyan rounded-full animate-spin"></div>
             </div>
-            <p class="mt-6 text-slate-400 font-mono tracking-wider animate-pulse">সংযুক্ত হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন...</p>
+            <p class="mt-6 text-slate-400 font-mono tracking-wider animate-pulse">Connecting... Please wait...</p>
         </div>
 
         <!-- SCREEN: Home Dashboard (Student Portal) -->
@@ -135,13 +135,13 @@
                 <div class="absolute -left-10 -top-10 w-44 h-44 bg-neonMagenta/10 rounded-full blur-3xl"></div>
                 <div class="relative z-10 max-w-3xl">
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-neonCyan/10 text-neonCyan border border-neonCyan/20 mb-4">
-                        <i class="fa-solid fa-atom animate-spin-slow mr-1.5"></i> অনলাইন লাইভ কুইজ পোর্টাল
+                        <i class="fa-solid fa-atom animate-spin-slow mr-1.5"></i> Online Live Exam Portal
                     </span>
                     <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-                        ডিজিটাল পরীক্ষার মাধ্যমে আপনার প্রস্তুতি যাচাই করুন
+                        Evaluate Your Preparation with Digital Exams
                     </h1>
                     <p class="mt-4 text-base text-slate-300 leading-relaxed">
-                        এখানে শিক্ষক কর্তৃক প্রস্তুতকৃত বিভিন্ন পরীক্ষার কুইজে অংশগ্রহণ করতে পারবেন। লাইভ পরীক্ষায় জয়েন করুন, সঠিক সময়ে উত্তর দিন এবং সাথে সাথেই আপনার ফলাফলের সম্পূর্ণ বিশ্লেষণ ও রিপোর্ট দেখে নিন।
+                        Participate in quizzes and exams prepared by your teacher. Join live exams, submit your answers within the time limit, and view instant analysis of your performance.
                     </p>
                 </div>
             </div>
@@ -152,25 +152,25 @@
                     <!-- Join with Code Card -->
                     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                         <h2 class="text-lg font-bold text-white flex items-center mb-4">
-                            <i class="fa-solid fa-key text-neonCyan mr-2.5"></i> কুইজ কোড দিয়ে প্রবেশ করুন
+                            <i class="fa-solid fa-key text-neonCyan mr-2.5"></i> Join Exam with Code
                         </h2>
-                        <p class="text-sm text-slate-400 mb-5">শিক্ষক প্রদত্ত পরীক্ষার নির্দিষ্ট আইডি অথবা লিঙ্ক দিয়ে সরাসরি অংশগ্রহণ করুন।</p>
+                        <p class="text-sm text-slate-400 mb-5">Enter the exam ID or click a direct link shared by your teacher to join.</p>
                         <div class="space-y-3">
-                            <input id="join-quiz-id" type="text" placeholder="কুইজ আইডি প্রবেশ করুন (যেমন: 1234-abcd)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-neonCyan transition duration-200">
+                            <input id="join-quiz-id" type="text" placeholder="Enter Quiz ID (e.g. 1234-abcd)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-neonCyan transition duration-200">
                             <button onclick="handleJoinQuizByInput()" class="w-full bg-slate-950 hover:bg-neonCyan/10 text-neonCyan border border-neonCyan hover:border-neonCyan hover:glow-cyan font-bold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-center space-x-2">
-                                <span>কুইজে প্রবেশ করুন</span> <i class="fa-solid fa-arrow-right"></i>
+                                <span>Join Exam</span> <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
 
                     <!-- Setup Helper Card -->
                     <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6">
-                        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-2">Google Sheets ইন্টিগ্রেশন</h3>
+                        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-2">Google Sheets Integration</h3>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            এই পোর্টালটি কোনো থার্ড পার্টি সার্ভার ছাড়াই সরাসরি আপনার নিজস্ব **Google Sheet** থেকে লাইভ ডাটা লোড ও সাবমিট করে। বিস্তারিত সেটআপ জানতে ডানদিকের সেটিংস আইকনে ক্লিক করুন।
+                            This portal loads and submits data directly using your own **Google Sheet** without requiring a backend server. Configure settings via the gears icon at the top right.
                         </p>
                         <a href="#/setup" class="inline-flex items-center text-xs text-neonCyan hover:underline mt-3">
-                            সেটআপ গাইড দেখুন <i class="fa-solid fa-arrow-trend-up ml-1"></i>
+                            Configure Settings <i class="fa-solid fa-arrow-trend-up ml-1"></i>
                         </a>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                 <div class="lg:col-span-2 space-y-6">
                     <div class="flex items-center justify-between">
                         <h2 class="text-xl font-bold text-white flex items-center">
-                            <i class="fa-solid fa-fire text-amber-500 mr-2.5 animate-pulse"></i> চলমান লাইভ কুইজসমূহ
+                            <i class="fa-solid fa-fire text-amber-500 mr-2.5 animate-pulse"></i> Ongoing Live Exams
                         </h2>
                         <button onclick="loadQuizzesAndResults()" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-white text-slate-400 hover:bg-slate-800 transition duration-200" title="রিফ্রেশ">
                             <i class="fa-solid fa-arrows-rotate"></i>
@@ -199,33 +199,33 @@
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl relative">
                 <!-- Back Button -->
                 <button onclick="location.hash='#/'" class="absolute top-4 left-4 text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-arrow-left"></i> ড্যাশবোর্ড
+                    <i class="fa-solid fa-arrow-left"></i> Dashboard
                 </button>
                 <div class="text-center mt-4">
                     <div class="w-16 h-16 rounded-full bg-neonCyan/10 border border-neonCyan flex items-center justify-center mx-auto mb-4 glow-cyan">
                         <i class="fa-solid fa-user-pen text-neonCyan text-2xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-white">পরীক্ষার্থীর নাম প্রবেশ করুন</h2>
-                    <p class="text-sm text-slate-400 mt-2">পরীক্ষায় অংশগ্রহণ করার পূর্বে আপনার পূর্ণ নাম প্রদান করুন। এই নামটি ফলাফলের শীটে সংরক্ষিত হবে।</p>
+                    <h2 class="text-2xl font-bold text-white">Enter Your Name</h2>
+                    <p class="text-sm text-slate-400 mt-2">Please enter your full name before starting the exam. This will be stored with your final results.</p>
                 </div>
 
                 <!-- Info Box -->
                 <div class="mt-6 bg-slate-950 border border-slate-850 p-4 rounded-xl text-xs text-slate-400 space-y-2">
                     <p class="font-bold text-white flex items-center text-amber-500">
-                        <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> পরীক্ষা চলাকালীন সতর্কতা:
+                        <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Security Warning:
                     </p>
-                    <p class="pl-5">১. পরীক্ষা শুরু করার পর অন্য ট্যাব ওপেন করা বা ব্রাউজার মিনিমাইজ করা সম্পূর্ণ নিষিদ্ধ।</p>
-                    <p class="pl-5">২. যদি কোনো পরীক্ষার্থী অন্য ট্যাব ওপেন করে বা স্ক্রিন পরিবর্তন করে, তার পরীক্ষাটি **তাত্ক্ষণিকভাবে লক** হয়ে যাবে।</p>
-                    <p class="pl-5">৩. লক হয়ে গেলে শুধুমাত্র শিক্ষকই প্যানেল থেকে পুনরায় আপনাকে আনলক (Unblock) করতে পারবেন।</p>
+                    <p class="pl-5">1. Switching tabs or minimizing the browser during the exam is strictly prohibited.</p>
+                    <p class="pl-5">2. If you switch tabs, leave the page, or change focus, the exam will be **blocked instantly**.</p>
+                    <p class="pl-5">3. If blocked, only your teacher can unblock you from their teacher panel to resume the exam.</p>
                 </div>
 
                 <div class="mt-8 space-y-4">
                     <div id="quiz-pre-info" class="p-4 bg-slate-950 border border-slate-850 rounded-xl">
                         <!-- Quiz Title & details will be shown dynamically -->
                     </div>
-                    <input id="student-name-input" type="text" placeholder="আপনার পুরো নাম লিখুন (যেমন: শাফিন আহমেদ)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-neonCyan transition duration-200">
+                    <input id="student-name-input" type="text" placeholder="Enter your full name (e.g. John Doe)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-neonCyan transition duration-200">
                     <button onclick="startStudentExam()" class="w-full bg-neonCyan hover:bg-neonCyan/90 text-slate-950 font-bold py-3.5 px-4 rounded-xl transition duration-300 flex items-center justify-center space-x-2 text-lg glow-cyan">
-                        <span>পরীক্ষা শুরু করুন</span> <i class="fa-solid fa-circle-play"></i>
+                        <span>Start Exam</span> <i class="fa-solid fa-circle-play"></i>
                     </button>
                 </div>
             </div>
@@ -237,9 +237,9 @@
             <div class="bg-slate-900 border border-slate-850 rounded-2xl p-4 sticky top-18 z-30 flex flex-col md:flex-row items-center justify-between gap-4 mb-6 shadow-xl glow-cyan" style="top: 70px;">
                 <div>
                     <span id="exam-subject" class="text-xs font-bold text-neonCyan uppercase tracking-widest">Physics</span>
-                    <h2 id="exam-title" class="text-xl font-extrabold text-white mt-1">কাইনেটিক্স লাইভ কুইজ</h2>
+                    <h2 id="exam-title" class="text-xl font-extrabold text-white mt-1">Kinetics Live Quiz</h2>
                     <p class="text-[11px] text-slate-400 flex items-center mt-1">
-                        <i class="fa-solid fa-user text-slate-500 mr-1.5"></i> পরীক্ষার্থী: <span id="exam-student-name" class="text-white font-medium ml-1">John Doe</span>
+                        <i class="fa-solid fa-user text-slate-500 mr-1.5"></i> Student: <span id="exam-student-name" class="text-white font-medium ml-1">John Doe</span>
                     </p>
                 </div>
                 <!-- Pinned Countdown Timer -->
@@ -262,7 +262,7 @@
                 <div class="space-y-6">
                     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sticky top-44 shadow-lg">
                         <h3 class="text-sm font-bold text-white flex items-center mb-4">
-                            <i class="fa-solid fa-clipboard-list text-neonCyan mr-2"></i> প্রশ্ন তালিকা নেভিগেটর
+                            <i class="fa-solid fa-clipboard-list text-neonCyan mr-2"></i> Question Navigator
                         </h3>
                         <div id="exam-navigator-grid" class="grid grid-cols-5 gap-2.5">
                             <!-- Navigator buttons injected dynamically -->
@@ -270,12 +270,12 @@
                         
                         <div class="border-t border-slate-800 my-5 pt-5">
                             <button onclick="confirmSubmitExam()" class="w-full bg-emeraldGreen hover:bg-emeraldGreen/90 text-slate-950 font-extrabold py-3.5 px-4 rounded-xl transition duration-300 flex items-center justify-center space-x-2 glow-green text-base">
-                                <i class="fa-solid fa-paper-plane"></i> <span>কুইজ উত্তরপত্র জমা দিন</span>
+                                <i class="fa-solid fa-paper-plane"></i> <span>Submit Exam</span>
                             </button>
                         </div>
                         
                         <div class="text-[11px] text-slate-500 text-center leading-relaxed">
-                            <i class="fa-solid fa-lock mr-1"></i> সুরক্ষিত ব্রাউজার মোড চালু রয়েছে। অন্য উইন্ডোতে গেলে পরীক্ষা ব্লক হবে।
+                            <i class="fa-solid fa-lock mr-1"></i> Secure exam tracking active. Switching tabs will block your exam.
                         </div>
                     </div>
                 </div>
@@ -287,35 +287,35 @@
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center">
                 <div class="absolute -right-16 -top-16 w-44 h-44 bg-emeraldGreen/5 rounded-full blur-3xl"></div>
                 
-                <h2 class="text-sm font-bold tracking-widest text-emeraldGreen uppercase">কুইজ সমাপ্ত! ফলাফল বিশ্লেষণ</h2>
-                <h1 id="result-quiz-title" class="text-2xl font-extrabold text-white mt-2">ফিজিক্স ফার্স্ট পেপার - ভেক্টর</h1>
-                <p id="result-student-info" class="text-sm text-slate-400 mt-1">পরীক্ষার্থী: শাফিন আহমেদ • বিষয়: পদার্থবিজ্ঞান</p>
+                <h2 class="text-sm font-bold tracking-widest text-emeraldGreen uppercase">Exam Finished! Results Analysis</h2>
+                <h1 id="result-quiz-title" class="text-2xl font-extrabold text-white mt-2">Quiz Finished</h1>
+                <p id="result-student-info" class="text-sm text-slate-400 mt-1">Student: John Doe • Subject: Physics</p>
 
                 <!-- Circular Score Indicator -->
                 <div class="my-8 relative flex items-center justify-center">
                     <div class="w-40 h-40 rounded-full border-4 border-slate-800 flex flex-col items-center justify-center bg-slate-950 relative overflow-hidden" id="result-score-glow">
                         <span id="result-score-percent" class="font-orbitron text-4xl font-black text-emeraldGreen">80%</span>
-                        <span id="result-score-fraction" class="text-sm text-slate-400 font-semibold mt-1">০৮ / ১০ সঠিক</span>
+                        <span id="result-score-fraction" class="text-sm text-slate-400 font-semibold mt-1">08 / 10 Correct</span>
                     </div>
                 </div>
 
                 <div class="max-w-md mx-auto grid grid-cols-2 gap-4 my-6 text-left">
                     <div class="bg-slate-950 border border-slate-850 p-4 rounded-2xl">
-                        <p class="text-xs text-slate-400">মোট প্রশ্ন সংখ্যা</p>
-                        <p id="result-total-q" class="text-xl font-bold text-white mt-1">১০ টি</p>
+                        <p class="text-xs text-slate-400">Total Questions</p>
+                        <p id="result-total-q" class="text-xl font-bold text-white mt-1">10</p>
                     </div>
                     <div class="bg-slate-950 border border-slate-850 p-4 rounded-2xl">
-                        <p class="text-xs text-slate-400">সঠিক উত্তর সংখ্যা</p>
-                        <p id="result-correct-q" class="text-xl font-bold text-emeraldGreen mt-1">০৮ টি</p>
+                        <p class="text-xs text-slate-400">Correct Answers</p>
+                        <p id="result-correct-q" class="text-xl font-bold text-emeraldGreen mt-1">8</p>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
                     <button onclick="location.hash='#/'" class="px-6 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 text-white border border-slate-800 font-semibold transition duration-200">
-                        <i class="fa-solid fa-house mr-2"></i> ড্যাশবোর্ডে ফিরে যান
+                        <i class="fa-solid fa-house mr-2"></i> Go to Dashboard
                     </button>
                     <button id="result-share-btn" onclick="shareResultLink()" class="px-6 py-3 rounded-xl bg-neonCyan hover:bg-neonCyan/90 text-slate-950 border border-neonCyan font-bold transition duration-200 glow-cyan">
-                        <i class="fa-solid fa-share-nodes mr-2"></i> ফলাফল লিঙ্ক কপি করুন
+                        <i class="fa-solid fa-share-nodes mr-2"></i> Copy Result Link
                     </button>
                 </div>
             </div>
@@ -323,7 +323,7 @@
             <!-- Detailed Question Analysis -->
             <div class="space-y-6">
                 <h3 class="text-xl font-bold text-white flex items-center">
-                    <i class="fa-solid fa-clipboard-check text-neonCyan mr-2.5"></i> প্রশ্ন ও সমাধান উত্তরপত্র
+                    <i class="fa-solid fa-clipboard-check text-neonCyan mr-2.5"></i> Questions & Solutions
                 </h3>
                 <div id="result-questions-analysis" class="space-y-4">
                     <!-- Answer breakdown injected dynamically -->
@@ -338,25 +338,25 @@
                     <div class="w-14 h-14 rounded-full bg-neonCyan/10 border border-neonCyan flex items-center justify-center mx-auto mb-3 glow-cyan">
                         <i class="fa-solid fa-shield-halved text-neonCyan text-2xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-white">শিক্ষক প্যানেলে লগইন</h2>
-                    <p class="text-xs text-slate-400 mt-1">শিক্ষক শংসাপত্র (Credentials) ব্যবহার করে আপনার পরীক্ষা ও প্রশ্নাবলী পরিচালনা করুন।</p>
+                    <h2 class="text-2xl font-bold text-white">Teacher Login</h2>
+                    <p class="text-xs text-slate-400 mt-1">Use credentials to manage quizzes, monitors, and results.</p>
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Username (ব্যবহারকারীর নাম)</label>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Username</label>
                         <input id="teacher-username" type="text" placeholder="username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Password (পাসওয়ার্ড)</label>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Password</label>
                         <input id="teacher-password" type="password" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
                     
                     <div class="text-[11px] text-slate-500 leading-normal bg-slate-950 p-3 rounded-lg border border-slate-850">
-                        *ডিফল্ট লগইন credentials আপনার Google Sheet এর <b>Quizzes!D444:E444</b> সেলে সংরক্ষিত থাকে। অফলাইন/ডাউনলোডের জন্য ব্যাকআপ পাসওয়ার্ড <b>admin / admin123</b> ব্যবহার করতে পারেন।
+                        *Credentials are stored in your Google Sheet at <b>Quizzes!D444:E444</b>. Backup offline credentials are <b>admin / admin123</b>.
                     </div>
 
                     <button onclick="handleTeacherLogin()" class="w-full bg-neonCyan hover:bg-neonCyan/90 text-slate-950 font-bold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-center space-x-2 text-base glow-cyan mt-6">
-                        <span>লগইন করুন</span> <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Login</span> <i class="fa-solid fa-right-to-bracket"></i>
                     </button>
                 </div>
             </div>
@@ -367,13 +367,13 @@
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-slate-800 pb-5 gap-4">
                 <div>
                     <h1 class="text-3xl font-extrabold text-white flex items-center">
-                        <i class="fa-solid fa-user-tie text-neonCyan mr-3"></i> শিক্ষক কন্ট্রোল প্যানেল
+                        <i class="fa-solid fa-user-tie text-neonCyan mr-3"></i> Teacher Dashboard
                     </h1>
-                    <p class="text-sm text-slate-400 mt-1">কুইজ তৈরি, লাইভ স্ট্যাটাস আপডেট, শিক্ষার্থীদের লাইভ মনিটরিং এবং ফলাফল পর্যবেক্ষণ করুন।</p>
+                    <p class="text-sm text-slate-400 mt-1">Create quizzes, update live status, monitor students in real time, and view results.</p>
                 </div>
                 <div class="flex items-center space-x-3">
                     <button onclick="location.hash='#/teacher/create'" class="bg-neonCyan hover:bg-neonCyan/90 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition duration-200 flex items-center space-x-2 glow-cyan">
-                        <i class="fa-solid fa-circle-plus"></i> <span>নতুন কুইজ তৈরি করুন</span>
+                        <i class="fa-solid fa-circle-plus"></i> <span>Create New Quiz</span>
                     </button>
                     <button onclick="logoutTeacher()" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 text-white font-medium px-4 py-2.5 rounded-xl transition duration-200">
                         <i class="fa-solid fa-power-off text-rose-500"></i>
@@ -384,21 +384,21 @@
             <!-- Tab Buttons -->
             <div class="flex border-b border-slate-800 gap-6">
                 <button onclick="switchTeacherTab('quizzes')" id="tab-btn-quizzes" class="text-neonCyan border-b-2 border-neonCyan font-bold pb-3 text-base flex items-center space-x-2">
-                    <i class="fa-solid fa-folder-open"></i> <span>কুইজ তালিকা</span>
+                    <i class="fa-solid fa-folder-open"></i> <span>Quizzes List</span>
                 </button>
                 <button onclick="switchTeacherTab('monitor')" id="tab-btn-monitor" class="text-slate-400 hover:text-white font-bold pb-3 text-base flex items-center space-x-2 relative">
-                    <i class="fa-solid fa-desktop"></i> <span>লাইভ এক্সাম মনিটর</span>
+                    <i class="fa-solid fa-desktop"></i> <span>Live Exam Monitor</span>
                     <span id="active-count-badge" class="hidden absolute -top-1 -right-4 bg-rose-500 text-white text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold">0</span>
                 </button>
                 <button onclick="switchTeacherTab('results')" id="tab-btn-results" class="text-slate-400 hover:text-white font-bold pb-3 text-base flex items-center space-x-2">
-                    <i class="fa-solid fa-chart-column"></i> <span>পরীক্ষার্থীদের ফলাফল</span>
+                    <i class="fa-solid fa-chart-column"></i> <span>Student Results</span>
                 </button>
             </div>
 
             <!-- TAB: Quizzes List -->
             <div id="teacher-tab-quizzes" class="space-y-6">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-bold text-white">তৈরিকৃত কুইজ ও ড্রাফটসমূহ</h2>
+                    <h2 class="text-xl font-bold text-white">Created Quizzes & Drafts</h2>
                     <button onclick="loadQuizzesAndResults()" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-white text-slate-400 hover:bg-slate-800 transition duration-200" title="রিফ্রেশ">
                         <i class="fa-solid fa-arrows-rotate animate-spin-hover"></i>
                     </button>
@@ -413,15 +413,15 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-xl font-bold text-white flex items-center">
-                            <i class="fa-solid fa-shield-heart text-rose-500 mr-2.5 animate-pulse"></i> লাইভ অসদুপায় ও স্ক্রিন ট্র্যাকিং মনিটর
+                            <i class="fa-solid fa-shield-heart text-rose-500 mr-2.5 animate-pulse"></i> Live Focus & Anti-Cheat Monitor
                         </h2>
-                        <p class="text-xs text-slate-400 mt-1">শিক্ষার্থীদের ট্যাব সুইচ বা স্ক্রিন অফ হওয়া স্বয়ংক্রিয়ভাবে ট্র্যাকিং হচ্ছে। আপনি এখান থেকে যেকোনো ব্লকড পরীক্ষার্থীকে আনব্লক করতে পারবেন।</p>
+                        <p class="text-xs text-slate-400 mt-1">Student tab-switching or minimizing is tracked in real time. You can unblock blocked students from here.</p>
                     </div>
                     <div class="flex items-center space-x-3">
                         <span id="monitor-sync-spinner" class="hidden text-xs text-slate-500 font-mono flex items-center space-x-1.5">
                             <i class="fa-solid fa-circle-notch animate-spin text-neonCyan"></i> <span>Syncing...</span>
                         </span>
-                        <button onclick="refreshLiveMonitor()" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-white text-slate-400 hover:bg-slate-800 transition duration-200" title="রিফ্রেশ">
+                        <button onclick="refreshLiveMonitor()" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-white text-slate-400 hover:bg-slate-800 transition duration-200" title="Refresh">
                             <i class="fa-solid fa-arrows-rotate"></i>
                         </button>
                     </div>
@@ -433,11 +433,11 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-950 border-b border-slate-850 text-slate-400 text-xs font-semibold tracking-wider uppercase">
-                                    <th class="p-4">পরীক্ষার্থীর নাম</th>
-                                    <th class="p-4">পরীক্ষার বিষয় ও শিরোনাম</th>
-                                    <th class="p-4">স্টার্ট টাইম</th>
-                                    <th class="p-4 text-center">স্থিতি (Status)</th>
-                                    <th class="p-4 text-center">অ্যাকশন (Action)</th>
+                                    <th class="p-4">Student Name</th>
+                                    <th class="p-4">Subject & Title</th>
+                                    <th class="p-4">Start Time</th>
+                                    <th class="p-4 text-center">Status</th>
+                                    <th class="p-4 text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="live-monitor-tbody" class="divide-y divide-slate-850 text-sm text-slate-300">
@@ -446,7 +446,7 @@
                         </table>
                     </div>
                     <div id="monitor-empty" class="hidden py-12 text-center text-slate-500">
-                        <i class="fa-solid fa-users-slash text-4xl mb-3 block"></i> এই মুহূর্তে কোনো শিক্ষার্থী লাইভ পরীক্ষা দিচ্ছে না।
+                        <i class="fa-solid fa-users-slash text-4xl mb-3 block"></i> No students are actively taking exams right now.
                     </div>
                 </div>
             </div>
@@ -454,11 +454,11 @@
             <!-- TAB: Student Results -->
             <div id="teacher-tab-results" class="hidden space-y-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <h2 class="text-xl font-bold text-white">সম্পন্ন পরীক্ষার ফলাফল তালিকা</h2>
+                    <h2 class="text-xl font-bold text-white">Completed Exam Results</h2>
                     <!-- Search Filter -->
                     <div class="relative w-full sm:w-72">
                         <i class="fa-solid fa-magnifying-glass text-slate-500 absolute left-3 top-3.5"></i>
-                        <input id="result-search-input" onkeyup="filterResultsTable()" type="text" placeholder="শিক্ষার্থীর নাম খুঁজুন..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-neonCyan transition duration-200">
+                        <input id="result-search-input" onkeyup="filterResultsTable()" type="text" placeholder="Search student name..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
                 </div>
 
@@ -467,12 +467,12 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-950 border-b border-slate-850 text-slate-400 text-xs font-semibold tracking-wider uppercase">
-                                    <th class="p-4">পরীক্ষার্থীর নাম</th>
-                                    <th class="p-4">পরীক্ষা</th>
-                                    <th class="p-4">বিষয়</th>
-                                    <th class="p-4 text-center">প্রাপ্ত নম্বর</th>
-                                    <th class="p-4">তারিখ ও সময়</th>
-                                    <th class="p-4 text-center">অ্যাকশন</th>
+                                    <th class="p-4">Student Name</th>
+                                    <th class="p-4">Quiz Title</th>
+                                    <th class="p-4">Subject</th>
+                                    <th class="p-4 text-center">Score</th>
+                                    <th class="p-4">Date & Time</th>
+                                    <th class="p-4 text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="teacher-results-tbody" class="divide-y divide-slate-850 text-sm text-slate-300">
@@ -481,7 +481,7 @@
                         </table>
                     </div>
                     <div id="results-empty" class="hidden py-12 text-center text-slate-500">
-                        <i class="fa-solid fa-folder-open text-4xl mb-3 block"></i> কোনো ফলাফল সংরক্ষিত নেই।
+                        <i class="fa-solid fa-folder-open text-4xl mb-3 block"></i> No results saved yet.
                     </div>
                 </div>
             </div>
@@ -491,11 +491,11 @@
         <div id="screen-quiz-form" class="hidden max-w-3xl mx-auto space-y-8">
             <div class="flex items-center justify-between border-b border-slate-800 pb-5">
                 <div>
-                    <h1 id="quiz-form-heading" class="text-2xl font-extrabold text-white">নতুন কুইজ তৈরি করুন</h1>
-                    <p class="text-xs text-slate-400 mt-1">কুইজের শিরোনাম, বিষয়, সময়সীমা এবং প্রয়োজনীয় প্রশ্নাবলী যুক্ত করুন।</p>
+                    <h1 id="quiz-form-heading" class="text-2xl font-extrabold text-white">Create New Quiz</h1>
+                    <p class="text-xs text-slate-400 mt-1">Configure the quiz title, subject, duration, and questions.</p>
                 </div>
                 <button onclick="location.hash='#/teacher'" class="px-4 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-white font-medium rounded-xl transition duration-200">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> ফিরে যান
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Back
                 </button>
             </div>
 
@@ -503,30 +503,30 @@
                 <!-- Step 1: Basic Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">কুইজ শিরোনাম (Title)</label>
-                        <input id="form-quiz-title" type="text" placeholder="যেমন: ভেক্টর অধ্যায় পরীক্ষা" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Quiz Title</label>
+                        <input id="form-quiz-title" type="text" placeholder="e.g. Vector Chapter Exam" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">বিষয় (Subject)</label>
-                        <input id="form-quiz-subject" type="text" placeholder="যেমন: পদার্থবিজ্ঞান ১ম পত্র" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Subject</label>
+                        <input id="form-quiz-subject" type="text" placeholder="e.g. Physics 1st Paper" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">সময়সীমা (মিনিট)</label>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Duration (minutes)</label>
                         <input id="form-quiz-duration" type="number" placeholder="10" min="1" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">কুইজ স্ট্যাটাস (Live Status)</label>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Quiz Status</label>
                         <div class="flex items-center space-x-6 mt-3">
                             <label class="flex items-center text-sm cursor-pointer text-white">
                                 <input id="form-quiz-islive-true" name="form-quiz-islive" type="radio" value="true" checked class="accent-neonCyan w-4.5 h-4.5 mr-2">
-                                এখনই লাইভ করুন (LIVE)
+                                Publish Live (LIVE)
                             </label>
                             <label class="flex items-center text-sm cursor-pointer text-white">
                                 <input id="form-quiz-islive-false" name="form-quiz-islive" type="radio" value="false" class="accent-neonCyan w-4.5 h-4.5 mr-2">
-                                ড্রাফট হিসেবে রাখুন (DRAFT)
+                                Save as Draft (DRAFT)
                             </label>
                         </div>
                     </div>
@@ -535,10 +535,10 @@
                 <div class="border-t border-slate-800 pt-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-bold text-white flex items-center">
-                            <i class="fa-solid fa-list-check text-neonCyan mr-2"></i> প্রশ্নাবলী (Questions)
+                            <i class="fa-solid fa-list-check text-neonCyan mr-2"></i> Questions
                         </h3>
                         <button onclick="addFormQuestion()" class="px-4 py-1.5 bg-slate-950 hover:bg-slate-800 border border-neonCyan/30 text-neonCyan text-xs font-bold rounded-lg transition duration-200">
-                            <i class="fa-solid fa-plus mr-1"></i> প্রশ্ন যুক্ত করুন
+                            <i class="fa-solid fa-plus mr-1"></i> Add Question
                         </button>
                     </div>
 
@@ -550,10 +550,10 @@
 
                 <div class="border-t border-slate-800 pt-6 flex justify-end space-x-3">
                     <button onclick="location.hash='#/teacher'" class="px-5 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-white font-semibold transition duration-200">
-                        বাতিল করুন
+                        Cancel
                     </button>
                     <button onclick="saveQuizForm()" class="px-6 py-3 rounded-xl bg-neonCyan hover:bg-neonCyan/90 text-slate-950 font-bold transition duration-200 glow-cyan">
-                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> কুইজ সংরক্ষণ করুন
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save Quiz
                     </button>
                 </div>
             </div>
@@ -564,31 +564,31 @@
             <div class="flex items-center justify-between border-b border-slate-800 pb-5">
                 <div>
                     <h1 class="text-2xl font-extrabold text-white flex items-center">
-                        <i class="fa-solid fa-gears text-neonCyan mr-2.5"></i> সেটিংস ও Google Sheets ইন্টিগ্রেশন
+                        <i class="fa-solid fa-gears text-neonCyan mr-2.5"></i> Settings & Google Sheets Integration
                     </h1>
-                    <p class="text-xs text-slate-400 mt-1">প্যানেলের সাথে আপনার Google Sheet লিংক করার সম্পূর্ণ গাইড ও ডাটা সেটিং।</p>
+                    <p class="text-xs text-slate-400 mt-1">Connect your Google Sheet and configure credentials.</p>
                 </div>
                 <button onclick="location.hash='#/'" class="px-4 py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 text-white font-medium rounded-xl transition duration-200">
-                    <i class="fa-solid fa-house mr-1"></i> ড্যাশবোর্ড
+                    <i class="fa-solid fa-house mr-1"></i> Dashboard
                 </button>
             </div>
 
             <!-- Credentials Card -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-key text-neonCyan mr-2"></i> ক্রেডেনশিয়ালস ডেটা এন্ট্রি
+                    <i class="fa-solid fa-key text-neonCyan mr-2"></i> Credentials Entry
                 </h3>
 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Spreadsheet ID (স্প্রেডশিট আইডি)</label>
-                        <input id="config-sheet-id" type="text" placeholder="যেমন: 1VgEmU2Lmv9Qlxbuam9Qq3bjp..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-neonCyan transition duration-200">
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Spreadsheet ID</label>
+                        <input id="config-sheet-id" type="text" placeholder="e.g. 1VgEmU2Lmv9Qlxbuam9Qq3bjp..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-neonCyan transition duration-200">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5">Service Account Client Email</label>
-                            <input id="config-client-email" type="text" placeholder="যেমন: app-name@project-id.iam.gserviceaccount.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-neonCyan transition duration-200">
+                            <input id="config-client-email" type="text" placeholder="e.g. app-name@project-id.iam.gserviceaccount.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white font-mono text-xs focus:outline-none focus:border-neonCyan transition duration-200">
                         </div>
                         <div>
                             <div class="flex justify-between items-center mb-1.5">
@@ -602,20 +602,20 @@
                     <div class="border-t border-slate-800/80 my-4 pt-4">
                         <div class="flex items-center justify-between mb-1">
                             <label class="block text-xs font-bold text-white uppercase tracking-widest flex items-center">
-                                <i class="fa-solid fa-cloud-bolt text-neonMagenta mr-1.5"></i> বিকল্প পদ্ধতি: Google Apps Script Web App URL
+                                <i class="fa-solid fa-cloud-bolt text-neonMagenta mr-1.5"></i> Alternative: Google Apps Script Web App URL
                             </label>
                             <span class="text-[9px] bg-neonMagenta/10 text-neonMagenta px-2 py-0.5 rounded-full font-bold">Recommended for GitHub Pages</span>
                         </div>
-                        <p class="text-[11px] text-slate-400 mb-2">সার্ভিস অ্যাকাউন্ট বা প্রাইভেট কি ব্রাউজারে ব্যবহার করতে না চাইলে, আপনার গুগল স্প্রেডশিটে একটি Apps Script যুক্ত করে সেটিকে Web App হিসেবে ডেপ্লয় করে সেই URL টি এখানে দিতে পারেন।</p>
-                        <input id="config-webapp-url" type="text" placeholder="যেমন: https://script.google.com/macros/s/.../exec" class="w-full bg-slate-950 border border-slate-850 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-neonMagenta transition duration-200">
+                        <p class="text-[11px] text-slate-400 mb-2">If you prefer not to use a Service Account, you can deploy a Google Apps Script Web App on your Google Sheet and enter the Web App URL here.</p>
+                        <input id="config-webapp-url" type="text" placeholder="e.g. https://script.google.com/macros/s/.../exec" class="w-full bg-slate-950 border border-slate-850 rounded-xl px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-neonMagenta transition duration-200">
                     </div>
 
                     <div class="flex justify-end space-x-3 pt-4">
                         <button onclick="resetConfigDefaults()" class="px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-white font-semibold transition duration-200 text-xs">
-                            রিসেট টু ডিফল্ট
+                            Reset to Defaults
                         </button>
                         <button onclick="saveConfigSettings()" class="px-5 py-2.5 rounded-xl bg-neonCyan hover:bg-neonCyan/90 text-slate-950 font-bold transition duration-200 glow-cyan text-xs">
-                            কনফিগারেশন সংরক্ষণ করুন
+                            Save Configuration
                         </button>
                     </div>
                 </div>
@@ -624,26 +624,26 @@
             <!-- Deployment Guide -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-circle-info text-neonCyan mr-2"></i> গুগল স্প্রেডশিট সেটআপ নির্দেশিকা (৩টি সহজ ধাপ)
+                    <i class="fa-solid fa-circle-info text-neonCyan mr-2"></i> Google Spreadsheet Setup (3 Easy Steps)
                 </h3>
                 
                 <div class="space-y-3.5 text-sm text-slate-300 leading-relaxed">
                     <div>
-                        <p class="font-bold text-white">ধাপ ১: স্প্রেডশিট তৈরি ও শেয়ারিং</p>
-                        <p class="text-xs text-slate-400 pl-4">১. একটি নতুন গুগল স্প্রেডশিট তৈরি করুন।</p>
-                        <p class="text-xs text-slate-400 pl-4">২. স্প্রেডশিটের শেয়ার অপশনে গিয়ে উপরে উল্লেখিত Service Account Client Email-টিকে <b>Editor</b> হিসেবে যুক্ত করে দিন।</p>
+                        <p class="font-bold text-white">Step 1: Create Spreadsheet & Share</p>
+                        <p class="text-xs text-slate-400 pl-4">1. Create a new Google Spreadsheet.</p>
+                        <p class="text-xs text-slate-400 pl-4">2. In the Spreadsheet Share menu, add the Service Account Client Email as an <b>Editor</b>.</p>
                     </div>
                     <div>
-                        <p class="font-bold text-white">ধাপ ২: শিক্ষক প্যানেলের পাসওয়ার্ড সেটআপ</p>
-                        <p class="text-xs text-slate-400 pl-4">১. স্প্রেডশিটে <b>Quizzes</b> এবং <b>Results</b> নামে দুটি শীট তৈরি করুন।</p>
-                        <p class="text-xs text-slate-400 pl-4">২. <b>Quizzes</b> শীট বা <b>Results</b> শীটের <b>D444</b> সেলে শিক্ষক প্যানেলের ইউজারনেম (যেমন: admin) এবং <b>E444</b> সেলে আপনার পাসওয়ার্ড দিন।</p>
+                        <p class="font-bold text-white">Step 2: Setup Teacher Password</p>
+                        <p class="text-xs text-slate-400 pl-4">1. Inside the spreadsheet, create two sheets: <b>Quizzes</b> and <b>Results</b>.</p>
+                        <p class="text-xs text-slate-400 pl-4">2. Set the Username in cell <b>D444</b> and Password in cell <b>E444</b> of the <b>Quizzes</b> sheet.</p>
                     </div>
                     <div>
-                        <p class="font-bold text-white">ধাপ ৩: Apps Script পদ্ধতি (নিরাপদ ও সহজ)</p>
-                        <p class="text-xs text-slate-400 pl-4">১. স্প্রেডশিটের উপরে মেনু থেকে <b>Extensions -> Apps Script</b>-এ যান।</p>
-                        <p class="text-xs text-slate-400 pl-4">২. সেখানে বিদ্যমান কোড মুছে ফেলে আমাদের ডিরেক্টরির <code>/web/Code.gs</code> ফাইলের কোডটুকু কপি করে পেস্ট করুন।</p>
-                        <p class="text-xs text-slate-400 pl-4">৩. উপরে ডানদিকে <b>Deploy -> New deployment</b>-এ যান। সিলেক্ট টাইপে <b>Web app</b> দিন।</p>
-                        <p class="text-xs text-slate-400 pl-4">৪. Who has access-এ অবশ্যই <b>Anyone</b> সিলেক্ট করে Deploy চাপুন। এবং প্রাপ্ত <b>Web App URL</b>-টি উপরের বক্সে দিয়ে সংরক্ষণ করুন!</p>
+                        <p class="font-bold text-white">Step 3: Apps Script Method</p>
+                        <p class="text-xs text-slate-400 pl-4">1. From the spreadsheet menu, go to <b>Extensions -> Apps Script</b>.</p>
+                        <p class="text-xs text-slate-400 pl-4">2. Clear any existing code and paste the content of the <code>/web/Code.gs</code> file.</p>
+                        <p class="text-xs text-slate-400 pl-4">3. Click <b>Deploy -> New deployment</b>, select <b>Web app</b> as the type.</p>
+                        <p class="text-xs text-slate-400 pl-4">4. Select <b>Anyone</b> for "Who has access" and click Deploy. Paste the resulting <b>Web App URL</b> into the alternative URL input above and click save.</p>
                     </div>
                 </div>
             </div>
@@ -659,12 +659,12 @@
         <span class="bg-rose-500/10 text-rose-500 border border-rose-500/20 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
             <i class="fa-solid fa-triangle-exclamation mr-1.5 animate-bounce"></i> Security Lock Triggered
         </span>
-        <h1 class="text-2xl sm:text-3xl font-black text-white">কুইজ পরীক্ষা লক করা হয়েছে!</h1>
+        <h1 class="text-2xl sm:text-3xl font-black text-white">Exam Session Locked!</h1>
         <p class="text-rose-400 font-bold mt-2 max-w-lg">
-            পরীক্ষা চলাকালীন অন্য ট্যাব ওপেন করা বা ব্রাউজার মিনিমাইজ করার কারণে আপনার পরীক্ষা সাময়িকভাবে লক করা হয়েছে।
+            Your session has been temporarily locked because you minimized the browser or switched tabs during the exam.
         </p>
         <p class="text-slate-400 text-sm mt-4 max-w-md leading-relaxed">
-            পরীক্ষা পুনরায় চালু করতে অনুগ্রহ করে আপনার শিক্ষকের সাথে যোগাযোগ করুন। শিক্ষক তার ড্যাশবোর্ডের লাইভ মনিটর প্যানেল থেকে আপনাকে আনব্লক (Unblock) করার পর এই লকটি স্বয়ংক্রিয়ভাবে খুলে যাবে।
+            Please contact your teacher to unblock you. Once the teacher unblocks you from the live monitor panel of the dashboard, you will automatically resume the exam.
         </p>
 
         <!-- Polling Indicator -->
