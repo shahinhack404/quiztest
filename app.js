@@ -1534,17 +1534,15 @@ function renderConfigForm() {
     document.getElementById("config-sheet-id").value = config.spreadsheetId;
     document.getElementById("config-client-email").value = config.clientEmail;
     document.getElementById("config-private-key").value = config.privateKey;
-    document.getElementById("config-webapp-url").value = config.webAppUrl || "";
 }
 
 function saveConfigSettings() {
     const id = document.getElementById("config-sheet-id").value.trim();
     const email = document.getElementById("config-client-email").value.trim();
     const key = document.getElementById("config-private-key").value.trim();
-    const webapp = document.getElementById("config-webapp-url").value.trim();
 
-    if (!id && !webapp) {
-        showToast("Spreadsheet ID or Apps Script Web App URL must be provided!", "error");
+    if (!id || !email || !key) {
+        showToast("Spreadsheet ID, Client Email, and Private Key are all required!", "error");
         return;
     }
 
@@ -1552,7 +1550,7 @@ function saveConfigSettings() {
         spreadsheetId: id,
         clientEmail: email,
         privateKey: key,
-        webAppUrl: webapp
+        webAppUrl: ""
     };
 
     saveConfig(newConfig);
