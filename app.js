@@ -646,7 +646,7 @@ async function handleRouting() {
             setupPreQuizInfo();
             showScreen("screen-enter-name");
         } else {
-            showToast("কুইজটি পাওয়া যায়নি বা ভুল লিঙ্ক ব্যবহার করেছেন।", "error");
+            showToast("Quiz not found or invalid link.", "error");
             location.hash = "#/";
         }
     } else if (hash.startsWith("#/results/")) {
@@ -659,7 +659,7 @@ async function handleRouting() {
             displayResultsDetail(result);
             showScreen("screen-result");
         } else {
-            showToast("ফলাফল পাওয়া যায়নি!", "error");
+            showToast("Result not found!", "error");
             location.hash = "#/";
         }
     } else if (hash === "#/teacher") {
@@ -703,7 +703,7 @@ async function loadQuizzesAndResults() {
         
         document.getElementById("sync-text").innerText = "Synced with Google Sheet";
     } catch (e) {
-        showToast("ডাটা সিঙ্ক করতে ব্যর্থ হয়েছে! সংযোগ চেক করুন।", "error");
+        showToast("Failed to sync data! Please check your connection.", "error");
         document.getElementById("sync-text").innerText = "Sync Failed (Offline)";
     } finally {
         toggleLoading(false);
@@ -721,7 +721,7 @@ function renderStudentDashboard() {
         listRoot.innerHTML = `
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-10 text-center text-slate-400">
                 <i class="fa-solid fa-hourglass-empty text-4xl mb-3 text-slate-600"></i>
-                <p>এই মুহূর্তে কোনো কুইজ লাইভ নেই। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</p>
+                <p>No live exams available at the moment. Please try again later.</p>
             </div>
         `;
         return;
@@ -744,13 +744,13 @@ function renderStudentDashboard() {
                 <h3 class="text-lg font-bold text-white mt-1">${quiz.title}</h3>
                 <p class="text-xs text-slate-400 flex items-center">
                     <span class="mr-3"><i class="fa-solid fa-book-open text-slate-500 mr-1.5"></i> ${quiz.subject}</span>
-                    <span class="mr-3"><i class="fa-solid fa-clock text-slate-500 mr-1.5"></i> ${quiz.durationMinutes} মিনিট</span>
-                    <span><i class="fa-solid fa-clipboard-question text-slate-500 mr-1.5"></i> ${totalQ} টি প্রশ্ন</span>
+                    <span class="mr-3"><i class="fa-solid fa-clock text-slate-500 mr-1.5"></i> ${quiz.durationMinutes} min</span>
+                    <span><i class="fa-solid fa-clipboard-question text-slate-500 mr-1.5"></i> ${totalQ} Questions</span>
                 </p>
             </div>
             <div>
                 <button onclick="location.hash='#/quiz/${quiz.id}'" class="w-full sm:w-auto bg-neonCyan hover:bg-neonCyan/90 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition duration-200 shadow-lg glow-cyan flex items-center justify-center space-x-1">
-                    <span>অংশগ্রহণ করুন</span> <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                    <span>Join Exam</span> <i class="fa-solid fa-right-to-bracket text-xs"></i>
                 </button>
             </div>
         `;
@@ -762,7 +762,7 @@ function renderStudentDashboard() {
 function handleJoinQuizByInput() {
     const inputId = document.getElementById("join-quiz-id").value.trim();
     if (!inputId) {
-        showToast("কুইজ আইডি প্রবেশ করুন!", "error");
+        showToast("Please enter a Quiz ID!", "error");
         return;
     }
     location.hash = `#/quiz/${inputId}`;
@@ -777,10 +777,10 @@ function setupPreQuizInfo() {
     preInfo.innerHTML = `
         <h4 class="font-bold text-white text-base">${quiz.title}</h4>
         <div class="grid grid-cols-2 gap-4 mt-3 text-xs text-slate-300">
-            <p><span class="text-slate-500">বিষয়:</span> ${quiz.subject}</p>
-            <p><span class="text-slate-500">সময়সীমা:</span> ${quiz.durationMinutes} মিনিট</p>
-            <p><span class="text-slate-500">মোট প্রশ্ন:</span> ${questions.length} টি</p>
-            <p><span class="text-slate-500">পূর্ণমান:</span> ${questions.length * 1}</p>
+            <p><span class="text-slate-500">Subject:</span> ${quiz.subject}</p>
+            <p><span class="text-slate-500">Duration:</span> ${quiz.durationMinutes} min</p>
+            <p><span class="text-slate-500">Total Questions:</span> ${questions.length}</p>
+            <p><span class="text-slate-500">Total Marks:</span> ${questions.length * 1}</p>
         </div>
     `;
     
@@ -791,7 +791,7 @@ function setupPreQuizInfo() {
 async function startStudentExam() {
     const name = document.getElementById("student-name-input").value.trim();
     if (!name) {
-        showToast("দয়া করে আপনার নাম প্রবেশ করুন!", "error");
+        showToast("Please enter your name!", "error");
         return;
     }
 
@@ -812,7 +812,7 @@ async function startStudentExam() {
     toggleLoading(false);
 
     if (!createdSession) {
-        showToast("পরীক্ষা সেশনে যুক্ত হতে ব্যর্থ হয়েছে। ইন্টারনেট কানেকশন চেক করুন।", "error");
+        showToast("Failed to join exam session. Please check your internet connection.", "error");
         return;
     }
 
@@ -909,7 +909,7 @@ function startExamTimer(minutes) {
         if (secondsLeft <= 0) {
             clearInterval(state.examTimerInterval);
             timerText.innerText = "00:00";
-            showToast("পরীক্ষার সময়সীমা শেষ হয়েছে! উত্তরপত্র স্বয়ংক্রিয়ভাবে জমা হচ্ছে।", "error");
+            showToast("Time limit reached! Submitting your exam automatically.", "error");
             submitStudentExam();
             return;
         }
@@ -965,14 +965,14 @@ async function triggerStudentBlock() {
             // Teacher has unblocked the student!
             clearInterval(state.studentBlockPollInterval);
             document.getElementById("block-overlay").classList.add("hidden");
-            showToast("আপনাকে সফলভাবে আনলক করা হয়েছে! পরীক্ষা চালু করুন।");
+            showToast("You have been unlocked! Resuming exam.");
         }
     }, 2000);
 }
 
 // --- Student Exam Submission ---
 function confirmSubmitExam() {
-    if (confirm("আপনি কি নিশ্চিতভাবে উত্তরপত্র জমা দিতে চান?")) {
+    if (confirm("Are you sure you want to submit your exam?")) {
         submitStudentExam();
     }
 }
@@ -1014,7 +1014,7 @@ async function submitStudentExam() {
     await SheetsService.updateActiveSessionStatus(state.activeSessionId, "COMPLETED");
 
     toggleLoading(false);
-    showToast("আপনার কুইজ উত্তরপত্র সফলভাবে জমা হয়েছে!");
+    showToast("Your exam has been submitted successfully!");
     
     // Redirect to result screen
     location.hash = `#/results/${resultId}`;
@@ -1023,11 +1023,11 @@ async function submitStudentExam() {
 // --- Render Student Result detail card ---
 function displayResultsDetail(result) {
     document.getElementById("result-quiz-title").innerText = result.quizTitle;
-    document.getElementById("result-student-info").innerText = `পরীক্ষার্থী: ${result.studentName} • বিষয়: ${result.subject}`;
+    document.getElementById("result-student-info").innerText = `Student: ${result.studentName} • Subject: ${result.subject}`;
 
     const scorePct = Math.round((result.score / result.totalQuestions) * 100) || 0;
     document.getElementById("result-score-percent").innerText = `${scorePct}%`;
-    document.getElementById("result-score-fraction").innerText = `${result.score.toString().padStart(2, '0')} / ${result.totalQuestions.toString().padStart(2, '0')} সঠিক`;
+    document.getElementById("result-score-fraction").innerText = `${result.score.toString().padStart(2, '0')} / ${result.totalQuestions.toString().padStart(2, '0')} Correct`;
 
     const glowCard = document.getElementById("result-score-glow");
     if (scorePct >= 70) {
@@ -1041,8 +1041,8 @@ function displayResultsDetail(result) {
         document.getElementById("result-score-percent").className = "font-orbitron text-4xl font-black text-rose-500";
     }
 
-    document.getElementById("result-total-q").innerText = `${result.totalQuestions} টি`;
-    document.getElementById("result-correct-q").innerText = `${result.score} টি`;
+    document.getElementById("result-total-q").innerText = `${result.totalQuestions}`;
+    document.getElementById("result-correct-q").innerText = `${result.score}`;
 
     // Dynamic Correct Quiz Solution
     const analysisRoot = document.getElementById("result-questions-analysis");
@@ -1051,7 +1051,7 @@ function displayResultsDetail(result) {
     // Load active questions array
     const targetQuiz = state.quizzes.find(q => q.quiz.id === result.quizId);
     if (!targetQuiz) {
-        analysisRoot.innerHTML = `<div class="text-xs text-slate-500">উত্তরপত্রের বিশদ বিশ্লেষণ লোড করতে ব্যর্থ হয়েছে।</div>`;
+        analysisRoot.innerHTML = `<div class="text-xs text-slate-500">Failed to load detailed answers analysis.</div>`;
         return;
     }
 
@@ -1100,10 +1100,10 @@ function displayResultsDetail(result) {
 function shareResultLink() {
     const link = window.location.href;
     navigator.clipboard.writeText(link).then(() => {
-        showToast("আপনার ফলাফল লিঙ্কটি সফলভাবে কপি করা হয়েছে!");
+        showToast("Your result link has been copied successfully!");
     }).catch(e => {
         console.error(e);
-        showToast("লিঙ্কটি কপি করতে ব্যর্থ হয়েছে।", "error");
+        showToast("Failed to copy link.", "error");
     });
 }
 
@@ -1121,7 +1121,7 @@ async function handleTeacherLogin() {
     const pass = document.getElementById("teacher-password").value.trim();
 
     if (!user || !pass) {
-        showToast("সবগুলো তথ্য ইনপুট করুন!", "error");
+        showToast("Please enter all fields!", "error");
         return;
     }
 
@@ -1130,22 +1130,22 @@ async function handleTeacherLogin() {
     toggleLoading(false);
 
     // Provide default fallback credentials
-    if (!credentials) {
+    if (!credentials || !credentials.username || !credentials.password) {
         credentials = { username: "admin", password: "admin123" };
     }
 
     if (user === credentials.username && pass === credentials.password) {
         state.isTeacherLoggedIn = true;
-        showToast("লগইন সফল হয়েছে!");
+        showToast("Login successful!");
         location.hash = "#/teacher";
     } else {
-        showToast("ভুল ইউজারনেম বা পাসওয়ার্ড প্রবেশ করেছেন!", "error");
+        showToast("Invalid username or password!", "error");
     }
 }
 
 function logoutTeacher() {
     state.isTeacherLoggedIn = false;
-    showToast("প্যানেল থেকে লগআউট সম্পন্ন হয়েছে।");
+    showToast("Successfully logged out.");
     location.hash = "#/";
 }
 
@@ -1191,7 +1191,7 @@ function renderTeacherDashboard() {
             <div class="flex items-start justify-between">
                 <div>
                     <h3 class="text-lg font-bold text-white">${q.title}</h3>
-                    <p class="text-xs text-slate-400 mt-1">${q.subject} • ${q.durationMinutes} মিনিট • ${totalQ} টি প্রশ্ন</p>
+                    <p class="text-xs text-slate-400 mt-1">${q.subject} • ${q.durationMinutes} min • ${totalQ} Questions</p>
                 </div>
                 <!-- Status badge toggle button -->
                 <button onclick="toggleQuizLiveStatus('${q.id}')" class="px-3 py-1 rounded-full text-xs font-bold ${q.isLive ? 'bg-emerald-500/10 text-emeraldGreen border border-emeraldGreen/20' : 'bg-slate-950 text-slate-500 border border-slate-800'}">
@@ -1205,13 +1205,13 @@ function renderTeacherDashboard() {
 
             <div class="flex items-center justify-between border-t border-slate-850 pt-4 mt-2">
                 <button onclick="copyToClipboard('${shareUrl}')" class="text-xs text-neonCyan hover:underline flex items-center">
-                    <i class="fa-solid fa-copy mr-1.5"></i> লিঙ্ক কপি করুন
+                    <i class="fa-solid fa-copy mr-1.5"></i> Copy Link
                 </button>
                 <div class="flex items-center space-x-3">
-                    <button onclick="location.hash='#/teacher/edit/${q.id}'" class="p-2 text-slate-400 hover:text-white hover:bg-slate-850 rounded-lg text-xs" title="সম্পাদনা করুন">
+                    <button onclick="location.hash='#/teacher/edit/${q.id}'" class="p-2 text-slate-400 hover:text-white hover:bg-slate-850 rounded-lg text-xs" title="Edit Quiz">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button onclick="deleteQuizOnline('${q.id}')" class="p-2 text-rose-500 hover:text-rose-400 hover:bg-slate-850 rounded-lg text-xs" title="মুছে ফেলুন">
+                    <button onclick="deleteQuizOnline('${q.id}')" class="p-2 text-rose-500 hover:text-rose-400 hover:bg-slate-850 rounded-lg text-xs" title="Delete Quiz">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
@@ -1236,9 +1236,9 @@ function renderTeacherDashboard() {
                 <td class="p-4">${res.quizTitle}</td>
                 <td class="p-4 text-xs font-mono text-slate-400">${res.subject}</td>
                 <td class="p-4 text-center font-bold text-emeraldGreen">${res.score} / ${res.totalQuestions}</td>
-                <td class="p-4 text-xs text-slate-400">${new Date(res.timestamp).toLocaleString("bn-BD")}</td>
+                <td class="p-4 text-xs text-slate-400">${new Date(res.timestamp).toLocaleString("en-US")}</td>
                 <td class="p-4 text-center">
-                    <button onclick="location.hash='#/results/${res.id}'" class="text-xs text-neonCyan hover:underline font-bold">ফলাফল</button>
+                    <button onclick="location.hash='#/results/${res.id}'" class="text-xs text-neonCyan hover:underline font-bold">Result</button>
                 </td>
             `;
             resultsTbody.appendChild(tr);
@@ -1279,12 +1279,12 @@ async function refreshLiveMonitor() {
                 tr.className = "hover:bg-slate-850/50 transition";
                 
                 let badgeClass = "bg-emerald-500/10 text-emeraldGreen border border-emeraldGreen/20";
-                let statusLabel = "পরীক্ষা দিচ্ছে";
-                let actionBtn = `<span class="text-xs text-slate-500 font-medium">নিরাপদ</span>`;
+                let statusLabel = "Testing";
+                let actionBtn = `<span class="text-xs text-slate-500 font-medium">Secure</span>`;
                 
                 if (s.status === "BLOCKED") {
                     badgeClass = "bg-rose-500/10 text-rose-500 border border-rose-500/20 animate-pulse";
-                    statusLabel = "ব্লকড (ট্যাব সুইচড)";
+                    statusLabel = "Blocked (Focus Lost)";
                     actionBtn = `
                         <button onclick="unblockStudentOnline('${s.sessionId}')" class="px-3.5 py-1.5 rounded-lg bg-rose-500 text-slate-950 font-black text-xs hover:bg-rose-400 transition hover:shadow-lg">
                             Unblock
@@ -1318,10 +1318,10 @@ async function unblockStudentOnline(sessionId) {
     const success = await SheetsService.updateActiveSessionStatus(sessionId, "ACTIVE");
     toggleLoading(false);
     if (success) {
-        showToast("শিক্ষার্থীকে সফলভাবে আনব্লক করা হয়েছে!");
+        showToast("Student unblocked successfully!");
         refreshLiveMonitor();
     } else {
-        showToast("আনব্লক করতে ব্যর্থ হয়েছে। সংযোগ চেক করুন।", "error");
+        showToast("Failed to unblock. Check your connection.", "error");
     }
 }
 
@@ -1336,16 +1336,16 @@ async function toggleQuizLiveStatus(quizId) {
     toggleLoading(false);
 
     if (success) {
-        showToast(item.quiz.isLive ? "কলাপরীক্ষাটি এখন লাইভ (LIVE) করা হয়েছে!" : "পরীক্ষাটি ড্রাফট (DRAFT) মোডে নেওয়া হয়েছে।");
+        showToast(item.quiz.isLive ? "Quiz is now LIVE!" : "Quiz has been set to DRAFT.");
         renderTeacherDashboard();
     } else {
-        showToast("স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে!", "error");
+        showToast("Failed to update quiz status!", "error");
     }
 }
 
 // --- Delete Quiz ---
 async function deleteQuizOnline(quizId) {
-    if (!confirm("আপনি কি নিশ্চিতভাবে এই কুইজ পরীক্ষাটি সম্পূর্ণ মুছে ফেলতে চান?")) return;
+    if (!confirm("Are you sure you want to delete this quiz?")) return;
 
     toggleLoading(true);
     const updatedList = state.quizzes.filter(q => q.quiz.id !== quizId);
@@ -1354,10 +1354,10 @@ async function deleteQuizOnline(quizId) {
 
     if (success) {
         state.quizzes = updatedList;
-        showToast("কুইজ পরীক্ষা সফলভাবে মুছে ফেলা হয়েছে!");
+        showToast("Quiz deleted successfully!");
         renderTeacherDashboard();
     } else {
-        showToast("মুছে ফেলতে ব্যর্থ হয়েছে!", "error");
+        showToast("Failed to delete quiz!", "error");
     }
 }
 
@@ -1369,7 +1369,7 @@ function setupQuizForm(quizId = null) {
     const heading = document.getElementById("quiz-form-heading");
 
     if (quizId) {
-        heading.innerText = "কুইজ সম্পাদনা করুন";
+        heading.innerText = "Edit Quiz";
         const item = state.quizzes.find(q => q.quiz.id === quizId);
         titleInp.value = item.quiz.title;
         subjInp.value = item.quiz.subject;
@@ -1383,7 +1383,7 @@ function setupQuizForm(quizId = null) {
 
         state.quizFormQuestions = JSON.parse(JSON.stringify(item.questions)); // Deep copy
     } else {
-        heading.innerText = "নতুন কুইজ তৈরি করুন";
+        heading.innerText = "Create New Quiz";
         titleInp.value = "";
         subjInp.value = "";
         durInp.value = "10";
@@ -1414,26 +1414,26 @@ function renderFormQuestions() {
         div.className = "bg-slate-950 border border-slate-850 p-6 rounded-2xl relative space-y-4";
         div.innerHTML = `
             <!-- Question Delete Button -->
-            <button onclick="removeFormQuestion('${q.id}')" class="absolute top-4 right-4 text-slate-500 hover:text-rose-500 text-sm" title="প্রশ্ন মুছুন">
+            <button onclick="removeFormQuestion('${q.id}')" class="absolute top-4 right-4 text-slate-500 hover:text-rose-500 text-sm" title="Delete Question">
                 <i class="fa-solid fa-trash-can"></i>
             </button>
 
             <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">প্রশ্ন ${idx + 1}</label>
-                <input type="text" value="${q.text}" onkeyup="updateFormQuestionValue('${q.id}', 'text', this.value)" placeholder="যেমন: ভেক্টর রাশির উদাহরণ কোনটি?" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-neonCyan text-sm">
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">Question ${idx + 1}</label>
+                <input type="text" value="${q.text}" onkeyup="updateFormQuestionValue('${q.id}', 'text', this.value)" placeholder="e.g. Which of the following is a vector quantity?" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-neonCyan text-sm">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${['A', 'B', 'C', 'D'].map((opt, optIdx) => `
                     <div>
                         <div class="flex justify-between items-center mb-1">
-                            <label class="block text-[11px] font-semibold text-slate-500">অপশন ${opt}</label>
+                            <label class="block text-[11px] font-semibold text-slate-500">Option ${opt}</label>
                             <label class="text-[10px] text-slate-400 flex items-center cursor-pointer">
                                 <input type="radio" name="correct-radio-${idx}" value="${optIdx}" ${q.correctOption === optIdx ? 'checked' : ''} onclick="updateFormQuestionValue('${q.id}', 'correctOption', ${optIdx})" class="accent-neonCyan mr-1.5 w-3.5 h-3.5">
-                                সঠিক উত্তর
+                                Correct Answer
                             </label>
                         </div>
-                        <input type="text" value="${q[`option${opt}`]}" onkeyup="updateFormQuestionValue('${q.id}', 'option${opt}', this.value)" placeholder="অপশন লিখুন" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-neonCyan text-xs">
+                        <input type="text" value="${q[`option${opt}`]}" onkeyup="updateFormQuestionValue('${q.id}', 'option${opt}', this.value)" placeholder="Enter option text" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-neonCyan text-xs">
                     </div>
                 `).join("")}
             </div>
@@ -1458,7 +1458,7 @@ function addFormQuestion() {
 
 function removeFormQuestion(id) {
     if (state.quizFormQuestions.length <= 1) {
-        showToast("অন্তত ১টি প্রশ্ন অবশ্যই থাকতে হবে!", "error");
+        showToast("You must have at least 1 question!", "error");
         return;
     }
     state.quizFormQuestions = state.quizFormQuestions.filter(q => q.id !== id);
@@ -1480,7 +1480,7 @@ async function saveQuizForm() {
     const isLive = document.getElementById("form-quiz-islive-true").checked;
 
     if (!title || !subject) {
-        showToast("শিরোনাম ও বিষয় অবশ্যই ইনপুট করতে হবে!", "error");
+        showToast("Title and Subject are required fields!", "error");
         return;
     }
 
@@ -1488,7 +1488,7 @@ async function saveQuizForm() {
     for (let i = 0; i < state.quizFormQuestions.length; i++) {
         const q = state.quizFormQuestions[i];
         if (!q.text || !q.optionA || !q.optionB || !q.optionC || !q.optionD) {
-            showToast(`প্রশ্ন ${i + 1} এবং এর সবগুলো অপশন সম্পূর্ণ করুন!`, "error");
+            showToast(`Please complete Question ${i + 1} and all its options!`, "error");
             return;
         }
     }
@@ -1506,10 +1506,10 @@ async function saveQuizForm() {
             const success = await SheetsService.updateAllQuizzes(state.quizzes);
             toggleLoading(false);
             if (success) {
-                showToast("কুইজ পরীক্ষা সফলভাবে আপডেট হয়েছে!");
+                showToast("Quiz updated successfully!");
                 location.hash = "#/teacher";
             } else {
-                showToast("কুইজ আপডেট করতে ব্যর্থ হয়েছে।", "error");
+                showToast("Failed to update quiz.", "error");
             }
         }
     } else {
@@ -1521,10 +1521,10 @@ async function saveQuizForm() {
         const success = await SheetsService.appendQuiz(newQuiz, newQuestions);
         toggleLoading(false);
         if (success) {
-            showToast("নতুন কুইজ পরীক্ষা সফলভাবে তৈরি হয়েছে!");
+            showToast("New quiz created successfully!");
             location.hash = "#/teacher";
         } else {
-            showToast("কুইজ তৈরি করতে ব্যর্থ হয়েছে। স্প্রেডশিট চেক করুন।", "error");
+            showToast("Failed to create quiz. Check your spreadsheet.", "error");
         }
     }
 }
@@ -1544,7 +1544,7 @@ function saveConfigSettings() {
     const webapp = document.getElementById("config-webapp-url").value.trim();
 
     if (!id && !webapp) {
-        showToast("স্প্রেডশিট আইডি অথবা Apps Script Web App URL যেকোনো একটি অবশ্যই প্রদান করতে হবে!", "error");
+        showToast("Spreadsheet ID or Apps Script Web App URL must be provided!", "error");
         return;
     }
 
@@ -1556,24 +1556,24 @@ function saveConfigSettings() {
     };
 
     saveConfig(newConfig);
-    showToast("কনফিগারেশন সফলভাবে আপডেট ও ব্রাউজারে সংরক্ষিত হয়েছে!");
+    showToast("Configuration saved and updated successfully!");
     location.hash = "#/";
 }
 
 function resetConfigDefaults() {
-    if (confirm("আপনি কি সেটিংসগুলো মুছে আমাদের ডিফল্ট MCQ টেস্ট ডাটাবেসে ফিরে যেতে চান?")) {
+    if (confirm("Are you sure you want to reset settings to default values?")) {
         saveConfig(DEFAULT_CONFIG);
         renderConfigForm();
-        showToast("কনফিগারেশন ডিফল্ট মানের সাথে রিসেট হয়েছে।");
+        showToast("Configuration has been reset to defaults.");
     }
 }
 
 // --- Utils ---
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
-        showToast("লিঙ্ক কপি করা হয়েছে!");
+        showToast("Link copied to clipboard!");
     }).catch(e => {
-        showToast("কপি করা যায়নি", "error");
+        showToast("Failed to copy link", "error");
     });
 }
 
